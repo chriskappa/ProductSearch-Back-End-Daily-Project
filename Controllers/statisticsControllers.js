@@ -61,15 +61,30 @@ router.post("/display", async (req, res) => {
   }
 });
 
-router.get("/displaySpecificPost/:postID", (req, res) => {
-  res.send("DisplaySpecificPost Route");
+/*
+ * displaySpecificPost is responsible to return specific post by its unique ID
+ * This funcction is helpful if we have searching algorithm
+ *
+ */
+router.get("/displaySpecificPost/:postID", async (req, res) => {
+  try {
+    const { postID } = req.params;
+    const post = await Statistic.find({ _id: postID });
+    res.send({ error: false, data: post });
+  } catch (error) {
+    res.status(404).send({ error: true, message: error });
+  }
 });
 
 router.get("/reset", async (req, res) => {
   try {
     await Statistic.deleteMany({});
-    res.send("Reset Route");
+    res.send({
+      error: false,
+      message: "All Posts Are Successfully Deleted!",
+    });
   } catch (error) {
+    res.status(409).send({ error: true, message: error });
     console.log(error);
   }
 });
