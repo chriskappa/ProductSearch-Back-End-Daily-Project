@@ -2,8 +2,7 @@ const mongoose = require("mongoose");
 
 // const dbLink = process.env.DATABASE_URL;
 // Its Test DB so there is no problem to share it with you :)
-const dbLink =
-  "mongodb+srv://cshostgr:cshostgr@cluster0.0vse1.mongodb.net/novafutur?retryWrites=true&w=majority";
+const dbLink = DB_LINK;
 mongoose
   .connect(dbLink, {
     useNewUrlParser: true,
